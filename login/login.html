@@ -4,55 +4,175 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Login Page</title>
-	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="login.css">
 	<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
-
 <body>
-	<div id="wrapper">
-		<div id="table">
-			<a class="active">Sign in</a>
-			<a class="">Sign Up</a>
-		</div>
-		<div id="signin">
-			<form action="">
-				<div class="form-group">
-					<label for="username">Username</label>
-					<input type="text" id="username" autofocus>
-				</div>
-				<div class="form-group">
-					<label for="pass">Password</label>
-					<input type="password" id="pass">
-					<span id="showpwd" class="fa fa-eye-slash"></span>
-				</div>
-				<div class="form-group">
-					<label id="checkbox">
-						<input type="checkbox" checked><span class="text">Keep me signed in </span>
-					</label>
-				</div>
-				<div class="form-group">
-					<input type="submit" value="Sign in">
-				</div>
-			</form>
-		<div class="hr"></div>
-		<a href="#" id="froget-pass">Forget Password?</a>
-		
+	<div class="nav-bar">
+        <div class="nav-logo">Communet</div>
+        <div class="nav-links-container">
+            <a class="nav-link" href="#topSection" id="topLink">Home</a>
+            <a class="nav-link" href="#artistsSection" id="artistsLink">Artists</a>
+            <a class="nav-link" href="#subscriptionsSection" id="subscriptionsLink">Subscriptions</a>
+            <!-- <a class="nav-link" href="#servicesSection" id="servicesLink">Services</a> -->
+            <a class="nav-link" href="#aboutSection" id="aboutLink">About Us</a>
+            <!-- <a class="nav-link" href="#teamSection" id="teamLink">Team</a>  -->
+            <a class="nav-link" href="#contactSection" id="contactLink">Contact</a>
+            <!-- <a class="nav-link">Blog</a> -->
+            <a class="btn btn-primary" href="../login/login.html" role="button">Login</a>
+        </div>
     </div>
-		
-	</div>
-	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-	<script >
-  $(document).ready(function () {
-	$("#showpwd").on("click", function () {
-		$(this).toggleClass("fa-eye fa-eye-slash");
-		$($(this).siblings()[1]).attr("type", function (index, attr) {
-			return attr == "password" ? "text" : "password"
-		});
-	});
-})
+    <div id="wrapper">
+        <div id="table">
+            <a class="active" id="signInLink" href="#">Sign in</a>
+            <a id="signUpLink" href="#">Sign Up</a>
+        </div>
+        <div id="signin">
+            <form action="">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" autofocus>
+                </div>
+                <div class="form-group">
+                    <label for="pass">Password</label>
+                    <input type="password" id="pass">
+                    <span id="showpwd" class="fa fa-eye-slash"></span>
+                </div>
+                <div class="form-group">
+                    <label id="checkbox">
+                        <input type="checkbox" checked><span class="text">Keep me signed in</span>
+                    </label>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Sign in">
+                </div>
+            </form>
+            <div class="hr"></div>
+            <a href="#" id="forget-pass">Forget Password?</a>
+        </div>
+        <div id="signup" style="display: none;">
+            <form action="">
+                <div class="form-group">
+                    <label for="account-type">Account Type</label>
+                    <select id="account-type" required>
+                        <option value="" disabled selected>Select type</option>
+                        <option value="business">Business</option>
+                        <option value="influencer">Influencer</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-username">Username</label>
+                    <input type="text" id="signup-username" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-password">Password</label>
+                    <input type="password" id="signup-password" required>
+                </div>
+                <div id="influencer-fields" style="display: none;">
+                    <div class="form-group">
+                        <label for="about-you">About You</label>
+                        <input type="text" id="about-you">
+                    </div>
+                    <div class="form-group">
+                        <label for="payment-amount">Payment Amount</label>
+                        <input type="number" id="payment-amount">
+                    </div>
+                    <div class="form-group">
+                        <label for="locality">Locality</label>
+                        <input type="text" id="locality">
+                    </div>
+                    <div class="form-group">
+                        <label for="target-age">Target Audience Age</label>
+                        <select id="target-age">
+                            <option value="13-18">13-18</option>
+                            <option value="19-25">19-25</option>
+                            <option value="26-35">26-35</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Sign Up">
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script>
+		  $(document).ready(function() {
+        $("#signup-form").on("submit", function(event) {
+            event.preventDefault(); // Prevent default form submission
 
-  </script>
+            const accountType = $("#account-type").val();
+            const name = $("#name").val();
+            const username = $("#signup-username").val();
+            const password = $("#signup-password").val();
+            const aboutYou = accountType === "influencer" ? $("#about-you").val() : null;
+            const paymentAmount = accountType === "influencer" ? $("#payment-amount").val() : null;
+            const locality = accountType === "influencer" ? $("#locality").val() : null;
+            const targetAge = accountType === "influencer" ? $("#target-age").val() : null;
+
+            const data = {
+                accountType,
+                name,
+                username,
+                password,
+                aboutYou,
+                paymentAmount,
+                locality,
+                targetAge
+            };
+
+            $.ajax({
+                url: "http://localhost:3000/signup",
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(data),
+                success: function(response) {
+                    alert(response.message);
+                },
+                error: function(xhr) {
+                    alert("Error: " + xhr.responseJSON.error);
+                }
+            });
+        });
+    });
+        $(document).ready(function() {
+            $("#showpwd").on("click", function() {
+                $(this).toggleClass("fa-eye fa-eye-slash");
+                $($(this).siblings()[1]).attr("type", function(index, attr) {
+                    return attr == "password" ? "text" : "password";
+                });
+            });
+
+            $("#signInLink").click(function() {
+                $("#signin").show();
+                $("#signup").hide();
+                $(this).addClass("active");
+                $("#signUpLink").removeClass("active");
+            });
+
+            $("#signUpLink").click(function() {
+                $("#signup").show();
+                $("#signin").hide();
+                $(this).addClass("active");
+                $("#signInLink").removeClass("active");
+            });
+
+            $("#account-type").change(function() {
+                if ($(this).val() === "influencer") {
+                    $("#influencer-fields").show();
+                } else {
+                    $("#influencer-fields").hide();
+                }
+            });
+        });
+    </script>
 </body>
+
 
 </html>
